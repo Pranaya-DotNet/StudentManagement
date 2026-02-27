@@ -45,6 +45,11 @@ namespace StudentManagement.API.Controllers
         [HttpPost]
         public IActionResult Add(Student student)
         {
+            if (string.IsNullOrWhiteSpace(student.Name))
+            {
+                return BadRequest("Student name is required.");
+            }
+
             try
             {
                 var created = _studentService.Add(student);
