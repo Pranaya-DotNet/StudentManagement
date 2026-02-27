@@ -30,8 +30,6 @@ namespace StudentManagement.API.Controllers
         [HttpGet("{id:int}")]
         public IActionResult GetById(int id)
         {
-            _logger.LogInformation("Fetching student with Id {Id}", id);
-
             var student = _studentService.GetById(id);
 
             if (student == null)
