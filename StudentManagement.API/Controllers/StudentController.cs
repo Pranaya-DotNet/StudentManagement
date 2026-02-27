@@ -50,8 +50,16 @@ namespace StudentManagement.API.Controllers
                 return BadRequest("Student name is required.");
             }
 
-            var created = _studentService.Add(student);
-            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+            try
+            {
+                var created = _studentService.Add(student);
+                return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error while adding student");
+                return StatusCode(500, "Internal server error");
+            }
         }
     }
 }
